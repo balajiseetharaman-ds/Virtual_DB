@@ -1,0 +1,28 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_loc_postgres_copy
+    DRIVERCLASSNAME = 'org.postgresql.Driver'
+    DATABASEURI = '${databases.test_db3.datasources.jdbc.ds_loc_postgres_copy.DATABASEURI}'
+    USERNAME = '${databases.test_db3.datasources.jdbc.ds_loc_postgres_copy.USERNAME}'
+    USERPASSWORD = '${databases.test_db3.datasources.jdbc.ds_loc_postgres_copy.USERPASSWORD}' ${databases.test_db3.datasources.jdbc.ds_loc_postgres_copy.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'postgresql-12'
+    DATABASENAME = 'postgresql'
+    DATABASEVERSION = '12'
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'Select 1'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXOPENPREPAREDSTATEMENTS = -1
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+    );
+
