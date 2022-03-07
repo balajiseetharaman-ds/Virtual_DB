@@ -1,0 +1,27 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_json_data_copy_copy
+    DATASOURCENAME=ds_loc_oracle_19c
+    SCHEMANAME='${databases.test_db1_desc.views.jdbc.bv_json_data_copy_copy.SCHEMANAME}' ESCAPE
+    RELATIONNAME='JSON_DATA' 
+    OUTPUTSCHEMA (
+        var1 = 'VAR1' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='10', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        coupon = 'COUPON' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_json_data_copy_copy I18N au_cst (
+        var1:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '10', description = 'vvr'),
+        coupon:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_json_data(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD var1 (any) OPT ANY
+             ADD coupon (any) OPT ANY
+        )
+        OUTPUTLIST (coupon, var1
+        )
+        WRAPPER (jdbc bv_json_data_copy_copy)
+    );
+
