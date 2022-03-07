@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE test_db1_desc '';
+
+ALTER DATABASE test_db1_desc
+  CHARSET DEFAULT;
+
