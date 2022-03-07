@@ -9,7 +9,7 @@ CREATE OR REPLACE WRAPPER JDBC bv_json_data_copy_copy
     );
 
 CREATE OR REPLACE TABLE bv_json_data_copy_copy I18N au_cst (
-        var1:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '10', description = 'vvr'),
+        var1:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '10', description = 'test'),
         coupon:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38')
     )
     CACHE OFF
