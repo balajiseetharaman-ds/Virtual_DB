@@ -12,7 +12,7 @@ CREATE OR REPLACE WRAPPER JDBC bv_emp_check
     INDEX 'emp_pk' OTHER UNIQUE PRIMARY ( 'empid' );
 
 CREATE OR REPLACE TABLE bv_emp_check I18N au_cst (
-        empid:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'test DB2'),
+        empid:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'demo_test'),
         empname:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
         performance_marks:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
     )
