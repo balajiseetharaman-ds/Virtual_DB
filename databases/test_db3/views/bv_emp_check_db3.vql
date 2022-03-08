@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_emp_check_db3
+    DATASOURCENAME=ds_loc_postgres_copy
+    SCHEMANAME='${databases.test_db3.views.jdbc.bv_emp_check_db3.SCHEMANAME}' ESCAPE
+    RELATIONNAME='Emp_check' ESCAPE
+    OUTPUTSCHEMA (
+        empid = 'empid' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        empname = 'empname' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        performance_marks = 'performance_marks' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE
+    )
+    CONSTRAINT 'emp_pk' PRIMARY KEY ( 'empid' )
+    INDEX 'emp_pk' OTHER UNIQUE PRIMARY ( 'empid' );
+
+CREATE OR REPLACE TABLE bv_emp_check_db3 I18N au_cst (
+        empid:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        empname:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        performance_marks:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    CONSTRAINT 'emp_pk' PRIMARY KEY ( 'empid' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_emp_check_db3(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD empid (any) OPT ANY
+             ADD empname (any) OPT ANY
+             ADD performance_marks (any) OPT ANY
+        )
+        OUTPUTLIST (empid, empname, performance_marks
+        )
+        WRAPPER (jdbc bv_emp_check_db3)
+    );
+
