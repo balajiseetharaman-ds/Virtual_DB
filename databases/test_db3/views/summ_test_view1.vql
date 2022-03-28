@@ -1,0 +1,29 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC summ_test_view1
+    DATASOURCENAME=ds_loc_postgres_copy
+    SCHEMANAME='${databases.test_db3.views.jdbc.summ_test_view1.SCHEMANAME}' 
+    RELATIONNAME='summ_view_test1' 
+    OUTPUTSCHEMA (
+        empno = 'empno' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='2', sourcetypename='numeric')  SORTABLE,
+        ename = 'ename' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        dname = 'dname' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    );
+
+CREATE OR REPLACE SUMMARY VIEW summ_test_view1 (
+        empno:int (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ename:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        dname:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50')
+    )
+    ADD SEARCHMETHOD summ_test_view1(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD empno (any) OPT ANY
+             ADD ename (any) OPT ANY
+             ADD dname (any) OPT ANY
+        )
+        OUTPUTLIST (dname, empno, ename
+        )
+        WRAPPER (jdbc summ_test_view1)
+    )
+AS SELECT e.empno AS empno, e.ename AS ename, d.dname AS dname FROM (SELECT empno, ename, dname FROM emp AS e INNER JOIN dept AS d ON e.deptno = d.deptno);
+

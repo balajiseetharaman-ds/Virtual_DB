@@ -1,0 +1,8 @@
+﻿CREATE OR REPLACE ASSOCIATION emp_dept REFERENTIAL CONSTRAINT 
+    ENDPOINT dept emp (0,*)
+    ENDPOINT emp dept PRINCIPAL (1)
+    ADD MAPPING deptno=deptno;
+
+ALTER ASSOCIATION emp_dept
+ LAYOUT (emp = [20, 20, 200, 185], dept = [532, 114, 200, 85]);
+
