@@ -1,2 +1,0 @@
-﻿CREATE OR REPLACE VIEW cross_view AS SELECT * FROM test_db2.bv_emp_check;
-
