@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW cross_view FOLDER = '/test' AS SELECT propercase(empname), empname, performance_marks FROM test_db2.bv_emp_check;
+
