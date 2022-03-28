@@ -1,0 +1,3 @@
+﻿/databases/test_db3/folder.test/test.vql
+/databases/test_db3/datasources/jdbc/ds_loc_postgres_copy.vql
+/databases/test_db3/views/emp1.vql

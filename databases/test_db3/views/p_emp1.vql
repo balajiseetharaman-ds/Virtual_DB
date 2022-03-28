@@ -1,5 +1,0 @@
-﻿CREATE OR REPLACE VIEW p_emp1 AS SELECT emp1.empno AS empno, emp1.ename AS ename, emp1.job AS job, emp1.mgr AS mgr, emp1.hiredate AS hiredate, emp1.to_date AS to_date, emp1.sal AS sal, emp1.comm AS comm, emp1.deptno AS deptno FROM emp1;
-
-ALTER VIEW p_emp1
- LAYOUT (emp1 = [20, 20, 209, 205]);
-
