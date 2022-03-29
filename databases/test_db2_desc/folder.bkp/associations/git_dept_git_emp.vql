@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE ASSOCIATION git_dept_git_emp REFERENTIAL CONSTRAINT 
+FOLDER = '/bkp'
+    ENDPOINT git_emp git_dept (0,*)
+    ENDPOINT git_dept git_emp PRINCIPAL (1)
+    ADD MAPPING deptno=deptno;
+
+ALTER ASSOCIATION git_dept_git_emp
+ LAYOUT (git_dept = [304, 262, 200, 85], git_emp = [702, 246, 200, 185]);
+

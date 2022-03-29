@@ -1,0 +1,4 @@
+﻿/databases/test_db2_desc/folder.bkp/bkp.vql
+/databases/test_db2_desc/datasources/jdbc/ds_loc_postgres.vql
+/databases/test_db2_desc/views/git_dept.vql
+/databases/test_db2_desc/views/git_emp.vql
