@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC git_bv_dept
+    DATASOURCENAME=test_postgres
+    SCHEMANAME='${databases.test_db4.views.jdbc.git_bv_dept.SCHEMANAME}' ESCAPE
+    RELATIONNAME='dept' 
+    OUTPUTSCHEMA (
+        deptno = 'deptno' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        dname = 'dname' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        location = 'location' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  ESCAPE NOT NULL SORTABLE
+    )
+    CONSTRAINT 'dept_pkey' PRIMARY KEY ( 'deptno' )
+    INDEX 'dept_pkey' OTHER UNIQUE PRIMARY ( 'deptno' );
+
+CREATE OR REPLACE TABLE git_bv_dept I18N au_cst (
+        deptno:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        dname:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        location:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50')
+    )
+    CONSTRAINT 'dept_pkey' PRIMARY KEY ( 'deptno' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD git_bv_dept(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD deptno (any) OPT ANY
+             ADD dname (any) OPT ANY
+             ADD location (any) OPT ANY
+        )
+        OUTPUTLIST (deptno, dname, location
+        )
+        WRAPPER (jdbc git_bv_dept)
+    );
+
