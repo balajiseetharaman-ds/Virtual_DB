@@ -1,0 +1,50 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC git_emp
+    FOLDER = '/bkp'
+    DATASOURCENAME=ds_loc_postgres
+    SCHEMANAME='${databases.test_db2_desc.folder.bkp.views.jdbc.git_emp.SCHEMANAME}' ESCAPE
+    RELATIONNAME='emp' 
+    OUTPUTSCHEMA (
+        empno = 'empno' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        ename = 'ename' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        job = 'job' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        mgr = 'mgr' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        hiredate = 'hiredate' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='13', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        sal = 'sal' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='2', sourcetypename='numeric')  SORTABLE,
+        comm = 'comm' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='2', sourcetypename='numeric')  SORTABLE,
+        deptno = 'deptno' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'emp_pkey' PRIMARY KEY ( 'empno' )
+    INDEX 'emp_pkey' OTHER UNIQUE PRIMARY ( 'empno' );
+
+CREATE OR REPLACE TABLE git_emp I18N au_cst (
+        empno:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ename:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        job:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        mgr:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        hiredate:localdate (sourcetypeid = '91', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '13'),
+        sal:decimal (sourcetypeid = '2', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '10'),
+        comm:decimal (sourcetypeid = '2', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '10'),
+        deptno:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/bkp'
+    CONSTRAINT 'emp_pkey' PRIMARY KEY ( 'empno' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD git_emp(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD empno (any) OPT ANY
+             ADD ename (any) OPT ANY
+             ADD job (any) OPT ANY
+             ADD mgr (any) OPT ANY
+             ADD hiredate (any) OPT ANY
+             ADD sal (any) OPT ANY
+             ADD comm (any) OPT ANY
+             ADD deptno (any) OPT ANY
+        )
+        OUTPUTLIST (comm, deptno, empno, ename, hiredate, job, mgr, sal
+        )
+        WRAPPER (jdbc git_emp)
+    );
+
