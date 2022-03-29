@@ -1,8 +1,8 @@
 ﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
 CREATE OR REPLACE WRAPPER JDBC test_bv_emp
-    FOLDER = '/yyy'
+    FOLDER = '/bkp'
     DATASOURCENAME=ds_loc_postgres
-    SCHEMANAME='${databases.test_db2_desc.folder.yyy.views.jdbc.test_bv_emp.SCHEMANAME}' ESCAPE
+    SCHEMANAME='${databases.test_db2_desc.folder.bkp.views.jdbc.test_bv_emp.SCHEMANAME}' ESCAPE
     RELATIONNAME='emp' 
     OUTPUTSCHEMA (
         empno = 'empno' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
@@ -27,7 +27,7 @@ CREATE OR REPLACE TABLE test_bv_emp I18N au_cst (
         comm:decimal (sourcetypeid = '2', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '10'),
         deptno:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
     )
-    FOLDER = '/yyy'
+    FOLDER = '/bkp'
     CONSTRAINT 'emp_pkey' PRIMARY KEY ( 'empno' )
     CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
