@@ -1,5 +1,4 @@
 ﻿CREATE OR REPLACE ASSOCIATION emp_dept REFERENTIAL CONSTRAINT 
-FOLDER = '/test2'
     ENDPOINT dept emp (0,*)
     ENDPOINT emp dept PRINCIPAL (1)
     ADD MAPPING deptno=deptno;
